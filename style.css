@@ -1,0 +1,229 @@
+/*Layout Styles UwU*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+  
+:root{
+    --white: #fff;
+    --grey: #9e9e9e;
+    --black: #252525;
+
+    --borderRadius: 3.125rem;
+    --borderRadius: 0.678em;
+    --borderRadius: 100rem;
+}
+  
+html{
+    scroll-behavior: smooth;
+    font-size: 62.5%
+}
+  
+@media(max-width: 981px){
+html,
+body{
+    overflow-x: hidden;
+}
+}
+  
+body {
+    position: relative;
+  
+    font-family: 'Compooter font', sans-serif;
+    background-color: var(--black);
+    color: var(--white);
+}
+
+.container{
+    width: 95%;
+    margin: 0 auto;
+}
+
+/*                Fonts                */
+
+@font-face {
+    font-family: 'Compooter font';
+    src: url(/fonts/Jersey15-Regular.ttf) format('truetype');
+    font-weight: 400;
+  }
+
+  h1{
+    font-size: 46px;
+    font-family: 'Compooter font';
+    text-shadow: 1px 1px #639A14;
+    white-space: nowrap;
+  }
+  
+  h1 > p {
+    font-size: 58px;
+    display: inline-block;
+  }
+  
+  h2 {
+    font-size: 46px;
+  }
+  
+  a {
+    color: var(--white);
+    text-decoration: none;
+  }
+
+
+
+.parallax-background{
+    background-image: url(images/teletubbies-background.jpg);
+    background-size: cover;
+    background-position: 10% bottom;
+    height: 600px;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+  
+z-index: -1;
+  
+    @media(min-height: 600px){
+      height: 100vh;
+    }
+  
+    @media(min-height: 800px){
+      height: 100vh;
+    }
+  
+    @media(min-height: 1200px){
+      height: 100vh;
+    }
+}
+
+/*Main stuff*/
+
+/*Top Message*/
+
+.top-message{
+    padding: 8px 0px;
+    background-color: var(--dark);
+    color: var(--green);
+    font-size: 1.8rem;
+    border-bottom: 1px solid var(--light);
+    border-top: 1px solid var(--light);
+
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+
+    margin-bottom: 25px;
+}
+
+.marquee-content{
+    animation: scrolling 15s linear infinite;
+    animation-direction: reverse;
+    display: inline-block;
+    position: relative;
+}
+
+.marquee-item{
+    display: inline-block;
+    margin-right: 3rem;
+}
+
+@keyframes scrolling {
+    from {transform: translate(0);}
+      to {transform: translate(-50%);}
+}
+
+/*Header*/
+
+.logo{
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 160px;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    
+    flex-direction: column;
+}
+
+/*Slider*/
+
+
+
+/**/
+
+
+.follow-insta-btn{
+    padding: 10px 20px;
+
+    text-align: center;
+    display: block;
+
+    margin: 0px auto;
+}
+
+
+/**/
+
+.button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin-bottom: 35px;
+  }
+  
+  .gradient-border-button {
+    position: relative;
+    padding: 1.2rem 2.4rem;
+    font-size: 18px;
+    font-family: 'Compooter font', 'sans-serif';
+    color: #31D2F7;
+    background: tr;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .gradient-border-button::before {
+    content: '';
+    position: absolute;
+    inset: -3px;
+    /* background: linear-gradient(45deg, #FFF100, #31D2F7, #F394BE); */
+    background: repeating-linear-gradient(
+    45deg,
+    #FFF100,
+    #FFF100 33.33%,
+    #31D2F7 33.33%,
+    #31D2F7 66.66%,
+    #F394BE 66.66%,
+    #F394BE 100%
+  );
+    border-radius: 10px;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    animation: borderRotate 4s linear infinite;
+  }
+  
+  @keyframes borderRotate {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+  }
+  
+  .gradient-border-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(243, 148, 190, 0.4); 
+    /* Adjusted box shadow to use a color from the new gradient */
+  }
+
+  .swipe-heading-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 25px;
+    margin-bottom: -10px;
+  }
