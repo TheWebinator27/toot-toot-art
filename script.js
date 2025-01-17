@@ -38,17 +38,17 @@ for (let heading of headings) {
 // 1) Reference to slider container
 const slider = document.getElementById("slider");
 
-// 2) image count in "images/elli-art"
-const totalImages = 117; 
-// (Change to however many Elli-img (x).jpg files)
+// 2) Number of images. Update this according to your files.
+const totalImages = 134;
+// Example: If you have Elli-img (1).jpg through Elli-img (117).jpg, set totalImages = 117
 
 // 3) Dynamically create .slide elements and append them
 for (let i = 1; i <= totalImages; i++) {
-
   const slideDiv = document.createElement("div");
   slideDiv.classList.add("slide");
 
   const img = document.createElement("img");
+  // Adjust the path to match your image directory and filenames
   img.src = `images/elli-art/Elli-img (${i}).jpg`;
   img.alt = `Slide ${i}`;
 
@@ -59,13 +59,13 @@ for (let i = 1; i <= totalImages; i++) {
   slider.appendChild(slideDiv);
 }
 
+// Reference to pagination
 const pagination = document.getElementById("pagination");
 if (pagination) {
   pagination.textContent = `1 of ${totalImages}`;
 }
 
-//slider function
-
+// Slides array
 const slides = document.querySelectorAll(".slide");
 const totalSlides = slides.length;
 
@@ -74,17 +74,19 @@ let currentIndex = 0;
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
-let animationFrameId = 0;
 
-const SWIPE_THRESHOLD = 50;
+const SWIPE_THRESHOLD = 50; // px
 
 function updatePagination() {
-  pagination.textContent = `${currentIndex + 1} of ${totalSlides}`;
+  if (pagination) {
+    pagination.textContent = `${currentIndex + 1} of ${totalSlides}`;
+  }
 }
 
 function goToSlide(index) {
-  // Keep index within valid range
+  // Keep index within valid range using modulo
   currentIndex = (index + totalSlides) % totalSlides;
+
   // Calculate translateX
   const offset = -currentIndex * 100;
   slider.style.transition = "transform 0.4s ease-in-out";
@@ -102,32 +104,34 @@ goToSlide(currentIndex);
 --------------------------------*/
 function onDragStart(e) {
   isDragging = true;
+  // Decide if mouse or touch
   startX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
   currentX = startX;
 
   // Disable transition during drag
   slider.style.transition = "none";
-  
-  // Cancel any in-progress animation
-  if (animationFrameId) {
-    cancelAnimationFrame(animationFrameId);
+  // Prevent default scrolling on mobile
+  if (e.type === "touchstart") {
+    e.preventDefault();
   }
 }
 
 function onDragMove(e) {
   if (!isDragging) return;
+  // Decide if mouse or touch
   currentX = e.type.includes("mouse") ? e.clientX : e.touches[0].clientX;
-  
+
   // Distance dragged
   const diff = currentX - startX;
-  
+
+  // Convert to percentage of slider width
   const translatePercentage = (-currentIndex * 100) + (diff / slider.offsetWidth * 100);
 
   // Apply transform in real-time
   slider.style.transform = `translateX(${translatePercentage}%)`;
 }
 
-function onDragEnd(e) {
+function onDragEnd() {
   if (!isDragging) return;
   isDragging = false;
 
@@ -155,6 +159,7 @@ slider.addEventListener("mouseup", onDragEnd);
 slider.addEventListener("mouseleave", onDragEnd);
 
 // Touch events
-slider.addEventListener("touchstart", onDragStart);
-slider.addEventListener("touchmove", onDragMove);
+// Using {passive:false} to allow preventDefault on touchstart if needed
+slider.addEventListener("touchstart", onDragStart, { passive: false });
+slider.addEventListener("touchmove", onDragMove, { passive: false });
 slider.addEventListener("touchend", onDragEnd);

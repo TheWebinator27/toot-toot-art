@@ -82,16 +82,24 @@ body {
     top: 0;
   
 z-index: -1;
+
+@media(min-height: 500px){
+    height: 600px;
+  }
   
     @media(min-height: 600px){
-      height: 100vh;
+      height: 700px;
     }
+
+    @media(min-height: 700px){
+        height: 800px;
+      }
+
+      @media(min-height: 800px){
+        height: 900px;
+      }
   
-    @media(min-height: 800px){
-      height: 100vh;
-    }
-  
-    @media(min-height: 1200px){
+    @media(min-height: 899px){
       height: 100vh;
     }
 }
@@ -147,12 +155,6 @@ header{
     
     flex-direction: column;
 }
-
-/*Slider*/
-
-
-
-/**/
 
 
 .follow-insta-btn{
