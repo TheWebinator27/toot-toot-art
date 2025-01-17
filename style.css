@@ -73,7 +73,7 @@ body {
 
 
 .parallax-background{
-    background-image: url(images/teletubbies-background.jpg);
+    background-image: url(images/pretty-desktop-flower-field-11lxn3janoe1788u.jpg);
     background-size: cover;
     background-position: 10% bottom;
     height: 600px;
@@ -146,14 +146,15 @@ z-index: -1;
 .logo{
     margin-top: 10px;
     border-radius: 10px;
-    width: 160px;
+    width: 100px;
 }
 
 header{
     display: flex;
     align-items: center;
+    justify-content: center;
     
-    flex-direction: column;
+    /* flex-direction: column; */
 }
 
 
