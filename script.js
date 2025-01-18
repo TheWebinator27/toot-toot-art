@@ -42,6 +42,11 @@ const record = document.getElementById('record-container');
 const clickPrompt = document.querySelector('.click-prompt');
 let isPlaying = false;
 
+audio.addEventListener('ended', () => {
+  audio.currentTime = 0;
+  audio.play();
+});
+
 record.addEventListener('click', () => {
 
   clickPrompt.style.display = "none";
