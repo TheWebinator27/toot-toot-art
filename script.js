@@ -38,7 +38,7 @@ for (let heading of headings) {
 const audio = document.createElement('audio');
 audio.src = 'music/All The Time Go.mp3'; 
 
-const record = document.getElementById('record-container');
+const record = document.getElementById('record');
 const clickPrompt = document.querySelector('.click-prompt');
 let isPlaying = false;
 
