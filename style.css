@@ -54,11 +54,17 @@ body {
     font-family: 'Compooter font';
     text-shadow: 1px 1px #639A14;
     white-space: nowrap;
+
+    margin-top: 40px;
   }
   
   h1 > p {
     font-size: 58px;
     display: inline-block;
+
+    @media(min-width: 980px){
+      font-size: 90px;
+    }
   }
   
   h2 {
@@ -106,9 +112,11 @@ z-index: -1;
 
 /*Main stuff*/
 
-/*Top Message*/
+/*Bottom marquee*/
 
-.top-message{
+.bottom-marquee{
+    background-color: #31D2F7;
+    bottom: 0px;
     padding: 8px 0px;
     background-color: var(--dark);
     color: var(--green);
@@ -121,23 +129,28 @@ z-index: -1;
     position: relative;
     white-space: nowrap;
 
-    margin-bottom: 25px;
+    margin-bottom: 20px;
+
+    display: flex;
+  justify-content: space-between; 
 
     @media(max-width: 980px){
-      margin-bottom: 10px;
+      margin-bottom: 30px;
     }
 }
 
 .marquee-content{
     animation: scrolling 15s linear infinite;
     animation-direction: reverse;
-    display: inline-block;
     position: relative;
-}
+    background-color: #31D2F7;
+
+    padding: 5px 0px;
+  }
 
 .marquee-item{
     display: inline-block;
-    margin-right: 3rem;
+    margin: 0rem 2rem;
 }
 
 @keyframes scrolling {
@@ -149,7 +162,7 @@ z-index: -1;
 
 .record-container{
   position: fixed;
-  z-index: 200;
+  z-index: 50;
   bottom: 15px;
   right: 15px;
   width: 125px;
@@ -276,11 +289,11 @@ header{
     align-items: center;
     justify-content: center;
 
-    margin-top: 25px;
+    margin-top: 35px;
     margin-bottom: -10px;
 
     @media(max-width: 980px){
-      margin-top: 0px;
+      margin-top: 15px;
     }
   }
 
@@ -298,7 +311,7 @@ header{
     scroll-behavior: smooth;
   
     margin-top: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 0px;
   }
   
   .slider-container::-webkit-scrollbar {
@@ -336,3 +349,158 @@ header{
     display: block;
     pointer-events: none; /
   }
+
+/*modal*/
+
+.modal{
+  position: fixed;
+  z-index: 200;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 400ms ease-in-out;
+
+  background-color: #252525;
+
+  width: 400px;
+  max-width: 90%;
+  border-radius: 15px;
+  padding: 20px;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+.modal.active{
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.modal-overlay{
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  pointer-events: none;
+
+  opacity: 0;
+}
+
+.modal-overlay.active{
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal h2{
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.close-modal{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px 18px;
+  border-radius: 0px 15px 0px 15px;
+  color: #252525;
+  background-color: #F0F3F4;
+
+  font-size: 2.8rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.close-modal:hover{
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5); 
+}
+
+.song-container{
+  width: 100%;
+  height: 320px;
+  overflow-y: scroll;
+
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.5); 
+  padding: 10px;
+  padding-top: 0px;
+  border-radius: 15px;
+}
+
+.song-container::-webkit-scrollbar {
+  width: 12px; 
+}
+
+.song-container::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.8); 
+  border-radius: 0px 5px 5px 0px;
+}
+
+.song-container::-webkit-scrollbar-thumb {
+  background: white; 
+  border-radius: 0px 5px 5px 0px; 
+}
+
+.song-container::-webkit-scrollbar-thumb:hover {
+  background: #f1f1f1; 
+}
+
+.song{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+
+  margin-top: 15px;
+  background-color: #fff;
+  color: #252525;
+  border-radius: 50px;
+  padding: 5px;
+  width: 100%;
+
+  font-size: 2rem;
+
+  transition: border 0.4s ease-in-out;
+  border: 2px solid #F0F3F4;
+
+  user-select: none;
+  cursor: pointer;
+}
+
+.song:hover{
+  border: 2px solid #000;
+}
+
+.song-selected{
+  border: 2px solid #000;
+}
+
+.song img{
+  width: 80px;
+  margin-right: 10px;
+}
+
+.audio-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+
+.audio-wrapper {
+  flex-shrink: 0;
+  width: 100%;
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(0%);
+}
+
+.song-controls{
+  width: 100%;
+  margin-top: 20px;
+}
+
+/*controls styling*/
+

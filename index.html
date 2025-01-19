@@ -31,32 +31,84 @@
     <div class="parallax-background" aria-hidden="true"></div>
 
     <!--Change Song Record-->
-    <div class="record-container">
+    <div class="record-container" id="record-container">
         <p class="animate-bounce click-prompt">Click Me <br>👇</p>
 
         <img id="record" src="images/Record.png" alt="Record Disk">
     </div>
 
-    <div class="top-message flex">
-        <div class="marquee-content"> 
-            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
-            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
-            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
-            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
-            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
-            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+    <!--Modal-->
+    <div class="modal" id="modal">
+        <div class="close-modal" id="close-modal">&times;</div>
+
+        <h2>Select A Song</h2>
+
+        <div class="song-container">
+
+            <div class="song" id="whered-all-the-time-go" data-audio-src="music/Whered All The Time Go.mp3">
+                <img src="images/Whered All The Time Go.png" alt="Record Disk">
+                <p>Where'd all the time go</p>
+            </div>
+
+            <div class="song" id="your-face" data-audio-src="music/Your face.mp3">
+                <img src="images/Your Face.png" alt="Record Disk">
+                <p>Your Face</p>
+            </div>
+
+            <div class="song" id="all-the-stars" data-audio-src="music/All The Stars.mp3">
+                <img src="images/All The Stars.png" alt="Record Disk">
+                <p>All The Stars</p>
+            </div>
+        
+            <div class="song" id="runaway" data-audio-src="music/runaway - kanye west.mp3">
+                <img src="images/RUNAWAY.png" alt="Record Disk">
+                <p>RUNAWAY</p>
+            </div>
+
+            <div class="song" id="meet-me-halfway" data-audio-src="music/meet me halfway.mp3">
+                <img src="images/Meet Me Halfway.png" alt="Record Disk">
+                <p>Meet Me Halfway (slowed)</p>
+            </div>
+        
+            <div class="song" id="life-immitates-me" data-audio-src="music/Be Quiet & Drive.mp3">
+                <img src="images/Be Quiet & Drive.png" alt="Record Disk">
+                <p>Be Quiet & Drive</p>
+            </div>
+
+            <div class="song" id="life-immitates-life" data-audio-src="music/life imitates life.mp3">
+                <img src="images/Life Imitates Me.png" alt="Record Disk">
+                <p>Life Immitates Life</p>
+            </div>
+
+            <div class="song" id="life-immitates-me" data-audio-src="music/pandora.mp3">
+                <img src="images/Pandora - Wisp.png" alt="Record Disk">
+                <p>Pandora</p>
+            </div>
+        
         </div>
+
+        <div id="audio-container" class="audio-container">
+            <div class="audio-wrapper">
+              <audio controls class="song-controls" id="current-audio">
+                <source src="" type="audio/mpeg">
+                Your browser does not support the audio element.
+              </audio>
+            </div>
+        </div>
+
     </div>
+    <!--Modal Overlay-->
+    <div class="modal-overlay" id="modal-overlay"></div>
     
     <header class="container">
-        <h1 class='rainbow-text-shadow'>Art Toot Toot</h1>
+        <h1 class='rainbow-text-shadow'>ART TOOT TOOT</h1>
     </header> 
 
 
     <!--Slider-->
 
     <div class="swipe-heading-container">
-        <h2 class="rainbow-text-shadow">Swipe -></h2>
+        <h2 class="rainbow-text-shadow">SWIPE -></h2>
     </div>
 
 
@@ -196,12 +248,35 @@
 
     <!--SLider-->
 
-            <!-- Gradient Border Button -->
-            <a class="button-wrapper" href="https://www.instagram.com/art.toot.toot/" rel="noopener" target="blank">
-                <button class="gradient-border-button">
-                    <span>FOLLOW MEEEE UwU</span>
-                </button>
-            </a>
+
+
+    <!--Marquee-->
+    <div class="bottom-marquee flex">
+        <div class="marquee-content"> 
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+        </div>
+
+        <div class="marquee-content"> 
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+            <span class="marquee-item">✨🦋🐸 Art Toot Toot 🐸🦋✨</span>
+        </div>
+    </div>
+
+                <!-- Gradient Border Button -->
+                <a class="button-wrapper" href="https://www.instagram.com/art.toot.toot/" rel="noopener" target="blank">
+                    <button class="gradient-border-button">
+                        <span>FOLLOW MEEEE UwU</span>
+                    </button>
+                </a>
 
 </body>
 </html>

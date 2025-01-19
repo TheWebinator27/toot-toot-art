@@ -1,9 +1,3 @@
-// Top message
-
-const marqueeContent = document.querySelector('.marquee-content');
-const clonedMarquee = marqueeContent.cloneNode(true);
-marqueeContent.parentElement.appendChild(clonedMarquee);
-
 // rainbow text shadow array
 
 const colors = ["#FFF100", "#31D2F7", "#F394BE"];
@@ -32,34 +26,6 @@ for (let heading of headings) {
     heading.appendChild(p);
   }
 }
-
-// Music
-
-const audio = document.createElement('audio');
-audio.src = 'music/All The Time Go.mp3'; 
-
-const record = document.getElementById('record');
-const clickPrompt = document.querySelector('.click-prompt');
-let isPlaying = false;
-
-audio.addEventListener('ended', () => {
-  audio.currentTime = 0;
-  audio.play();
-});
-
-record.addEventListener('click', () => {
-
-  clickPrompt.style.display = "none";
-
-  if (isPlaying) {
-    audio.pause();
-    record.style.animationPlayState = 'paused';
-  } else {
-    audio.play();
-    record.style.animation = 'recordRotate 6s linear infinite';
-  }
-  isPlaying = !isPlaying; 
-});
 
 // Slider
 
@@ -93,4 +59,79 @@ slider.addEventListener('mousemove', (e) => {
   const x = e.pageX - slider.offsetLeft;
   const walk = (x - startX) * 1.5; // Adjust scroll sensitivity
   slider.scrollLeft = scrollLeft - walk;
+});
+
+// modal
+
+const openSongControls = document.getElementById('record-container');
+const closeModalBtn = document.getElementById('close-modal');
+const modal = document.getElementById('modal');
+const modalOverlay = document.getElementById('modal-overlay');
+
+openSongControls.addEventListener('click', () => {
+  modal.classList.add('active');
+  modalOverlay.classList.add('active');
+});
+
+closeModalBtn.addEventListener('click', () => {
+  modal.classList.remove('active');
+  modalOverlay.classList.remove('active');
+});
+
+modalOverlay.addEventListener('click', () => {
+  modal.classList.remove('active');
+  modalOverlay.classList.remove('active');
+});
+
+//songs
+
+document.addEventListener("DOMContentLoaded", () => {
+  const audioElement = document.getElementById("current-audio");
+  const audioSource = audioElement.querySelector("source");
+  const songs = document.querySelectorAll(".song");
+
+  songs.forEach(song => {
+      song.addEventListener("click", () => {
+          // Remove the 'song-selected' class from all songs
+          songs.forEach(s => s.classList.remove("song-selected"));
+
+          // Add the 'song-selected' class to the clicked song
+          song.classList.add("song-selected");
+
+          // Get the new audio source
+          const newAudioSrc = song.getAttribute("data-audio-src");
+
+          // Check if the new source is different from the current source
+          if (audioSource.src !== window.location.origin + "/" + newAudioSrc) {
+              audioSource.src = newAudioSrc; // Update the source
+              audioElement.load();          // Reload the audio element
+              audioElement.play();          // Play the new song
+          }
+      });
+  });
+});
+
+// Music
+
+const record = document.getElementById('record');
+const clickPrompt = document.querySelector('.click-prompt');
+const audioElement = document.getElementById('current-audio');
+
+// Remove the click prompt immediately
+if (clickPrompt) {
+    clickPrompt.style.display = "none";
+}
+
+// Event listener to monitor audio playback state
+audioElement.addEventListener('play', () => {
+    record.style.animation = 'recordRotate 6s linear infinite';
+    record.style.animationPlayState = 'running';
+});
+
+audioElement.addEventListener('pause', () => {
+    record.style.animationPlayState = 'paused';
+});
+
+audioElement.addEventListener('ended', () => {
+    record.style.animationPlayState = 'paused';
 });
