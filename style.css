@@ -247,11 +247,11 @@ header{
     align-items: center;
     justify-content: center;
 
-    margin-top: 35px;
+    margin-top: 25px;
     margin-bottom: -10px;
 
     @media(max-width: 980px){
-      margin-top: 15px;
+      margin-top: 10px;
     }
   }
 
