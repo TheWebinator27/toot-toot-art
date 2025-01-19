@@ -85,59 +85,103 @@ modalOverlay.addEventListener('click', () => {
 
 //songs
 
+// Music
+
 document.addEventListener("DOMContentLoaded", () => {
   const audioElement = document.getElementById("current-audio");
   const audioSource = audioElement.querySelector("source");
   const songs = document.querySelectorAll(".song");
+  const record = document.getElementById("record");
+  const clickPrompt = document.querySelector(".click-prompt");
+  let currentlyPlayingSong = null;
 
+  // song selection
   songs.forEach(song => {
-      song.addEventListener("click", () => {
-          // Remove the 'song-selected' class from all songs
-          songs.forEach(s => s.classList.remove("song-selected"));
+    song.addEventListener("click", () => {
+      const newAudioSrc = song.getAttribute("data-audio-src");
+      const newImageSrc = song.querySelector("img").src;
 
-          // Add the 'song-selected' class to the clicked song
-          song.classList.add("song-selected");
-
-          // Get the new audio source
-          const newAudioSrc = song.getAttribute("data-audio-src");
-
-          // Check if the new source is different from the current source
-          if (audioSource.src !== window.location.origin + "/" + newAudioSrc) {
-              audioSource.src = newAudioSrc; // Update the source
-              audioElement.load();          // Reload the audio element
-              audioElement.play();          // Play the new song
+      // Check if a new song is selected
+      if (audioSource.src !== window.location.origin + "/" + newAudioSrc) {
+        // Reset animation for all song images
+        songs.forEach(s => {
+          s.classList.remove("song-selected");
+          const img = s.querySelector("img");
+          if (img) {
+            img.style.animation = ""; // Reset animation
           }
-      });
+        });
+
+        // Add 'song-selected' to the clicked song
+        song.classList.add("song-selected");
+
+        // Update the audio source and play the new song
+        audioSource.src = newAudioSrc;
+        audioElement.load();
+        audioElement.play();
+
+        // Reset and sync the record position with the new song image
+        record.src = newImageSrc;
+        record.style.animation = ""; // Reset animation first
+        setTimeout(() => {
+          record.style.animation = "recordRotate 6s linear infinite";
+        }, 10);
+
+        // Apply rotation animation to the new song's image
+        const currentSongImage = song.querySelector("img");
+        if (currentSongImage) {
+          currentSongImage.style.animation = "recordRotate 6s linear infinite";
+        }
+
+        // Update currently playing song reference
+        currentlyPlayingSong = song;
+
+        // Hide click prompt if visible
+        if (clickPrompt) {
+          clickPrompt.style.display = "none";
+        }
+      }
+    });
   });
-});
 
-// Music
+  //pause functionality
+  audioElement.addEventListener("pause", () => {
+    if (currentlyPlayingSong) {
+      record.style.animationPlayState = "paused"; // Pause record rotation
+      const currentSongImage = currentlyPlayingSong.querySelector("img");
+      if (currentSongImage) {
+        currentSongImage.style.animationPlayState = "paused"; // Pause song image rotation
+      }
+    }
+  });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const record = document.getElementById('record');
-  const clickPrompt = document.querySelector('.click-prompt');
-  const audioElement = document.getElementById('current-audio');
+  // play functionality
+  audioElement.addEventListener("play", () => {
+    if (currentlyPlayingSong) {
+      record.style.animationPlayState = "running"; // Resume record rotation
+      const currentSongImage = currentlyPlayingSong.querySelector("img");
+      if (currentSongImage) {
+        currentSongImage.style.animationPlayState = "running"; // Resume song image rotation
+      }
+    }
+  });
 
-  if (clickPrompt) {
-    clickPrompt.style.display = "block";
-  }
+  // ended functionality
+  audioElement.addEventListener("ended", () => {
+    if (currentlyPlayingSong) {
+      const currentSongImage = currentlyPlayingSong.querySelector("img");
+      if (currentSongImage) {
+        currentSongImage.style.animationPlayState = "paused"; // Stop song image rotation
+      }
+    }
+    record.style.animationPlayState = "paused"; // Stop record rotation
+  });
 
-  record.addEventListener('click', () => {
+  // click prompt
+  record.addEventListener("click", () => {
     if (clickPrompt) {
       clickPrompt.style.display = "none";
     }
   });
-
-  audioElement.addEventListener('play', () => {
-    record.style.animation = 'recordRotate 6s linear infinite';
-    record.style.animationPlayState = 'running';
-  });
-
-  audioElement.addEventListener('pause', () => {
-    record.style.animationPlayState = 'paused';
-  });
-
-  audioElement.addEventListener('ended', () => {
-    record.style.animationPlayState = 'paused';
-  });
 });
+
