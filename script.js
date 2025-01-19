@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const clickPrompt = document.querySelector(".click-prompt");
   let currentlyPlayingSong = null;
 
-  // Function to set a song as selected
+  // Set a song as selected
   const setSongAsSelected = (song) => {
     // Reset all songs
     songs.forEach(s => {
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Mark the selected song
+    // Mark selected song
     song.classList.add("song-selected");
 
     // Update record image
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // Handle play functionality (default song selection)
+  // Handle play (default song selection)
   audioElement.addEventListener("play", () => {
     if (!currentlyPlayingSong) {
       // Default to 'Feel Good Inc' if no song is selected
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Pause functionality
+  // Pause
   audioElement.addEventListener("pause", () => {
     if (currentlyPlayingSong) {
       record.style.animationPlayState = "paused"; // Pause record rotation
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // End functionality
+  // End
   audioElement.addEventListener("ended", () => {
     if (currentlyPlayingSong) {
       const currentSongImage = currentlyPlayingSong.querySelector("img");
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     record.style.animationPlayState = "paused"; // Stop record rotation
   });
 
-  // Click prompt functionality
+  // Click prompt
   record.addEventListener("click", () => {
     if (clickPrompt) {
       clickPrompt.style.display = "none";
