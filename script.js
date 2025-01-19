@@ -113,25 +113,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Music
 
-const record = document.getElementById('record');
-const clickPrompt = document.querySelector('.click-prompt');
-const audioElement = document.getElementById('current-audio');
+document.addEventListener("DOMContentLoaded", () => {
+  const record = document.getElementById('record');
+  const clickPrompt = document.querySelector('.click-prompt');
+  const audioElement = document.getElementById('current-audio');
 
-// Remove the click prompt immediately
-if (clickPrompt) {
-    clickPrompt.style.display = "none";
-}
+  if (clickPrompt) {
+    clickPrompt.style.display = "block";
+  }
 
-// Event listener to monitor audio playback state
-audioElement.addEventListener('play', () => {
+  record.addEventListener('click', () => {
+    if (clickPrompt) {
+      clickPrompt.style.display = "none";
+    }
+  });
+
+  audioElement.addEventListener('play', () => {
     record.style.animation = 'recordRotate 6s linear infinite';
     record.style.animationPlayState = 'running';
-});
+  });
 
-audioElement.addEventListener('pause', () => {
+  audioElement.addEventListener('pause', () => {
     record.style.animationPlayState = 'paused';
-});
+  });
 
-audioElement.addEventListener('ended', () => {
+  audioElement.addEventListener('ended', () => {
     record.style.animationPlayState = 'paused';
+  });
 });

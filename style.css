@@ -55,7 +55,11 @@ body {
     text-shadow: 1px 1px #639A14;
     white-space: nowrap;
 
-    margin-top: 40px;
+    margin-top: 25px;
+
+    @media(min-width: 980px){
+      font-size: 40px;
+    }
   }
   
   h1 > p {
@@ -111,52 +115,6 @@ z-index: -1;
 }
 
 /*Main stuff*/
-
-/*Bottom marquee*/
-
-.bottom-marquee{
-    background-color: #31D2F7;
-    bottom: 0px;
-    padding: 8px 0px;
-    background-color: var(--dark);
-    color: var(--green);
-    font-size: 1.8rem;
-    border-bottom: 1px solid var(--light);
-    border-top: 1px solid var(--light);
-
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    white-space: nowrap;
-
-    margin-bottom: 20px;
-
-    display: flex;
-  justify-content: space-between; 
-
-    @media(max-width: 980px){
-      margin-bottom: 30px;
-    }
-}
-
-.marquee-content{
-    animation: scrolling 15s linear infinite;
-    animation-direction: reverse;
-    position: relative;
-    background-color: #31D2F7;
-
-    padding: 5px 0px;
-  }
-
-.marquee-item{
-    display: inline-block;
-    margin: 0rem 2rem;
-}
-
-@keyframes scrolling {
-    from {transform: translate(0);}
-      to {transform: translate(-50%);}
-}
 
 /*Change Song*/
 
