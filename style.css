@@ -357,6 +357,7 @@ header{
 .modal h2{
   text-transform: uppercase;
   margin-bottom: 10px;
+  font-size: 38px;
 }
 
 .close-modal{
