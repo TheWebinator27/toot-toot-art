@@ -63,24 +63,34 @@ slider.addEventListener('mousemove', (e) => {
 
 // modal
 
-const openSongControls = document.getElementById('record-container');
-const closeModalBtn = document.getElementById('close-modal');
-const modal = document.getElementById('modal');
-const modalOverlay = document.getElementById('modal-overlay');
+document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modal");
 
-openSongControls.addEventListener('click', () => {
-  modal.classList.add('active');
-  modalOverlay.classList.add('active');
-});
+  // Add the 'ready' class to make the modal render properly
+  requestAnimationFrame(() => {
+    modal.classList.add("ready");
+  });
 
-closeModalBtn.addEventListener('click', () => {
-  modal.classList.remove('active');
-  modalOverlay.classList.remove('active');
-});
+  const openSongControls = document.getElementById("record-container");
+  const closeModalBtn = document.getElementById("close-modal");
+  const modalOverlay = document.getElementById("modal-overlay");
 
-modalOverlay.addEventListener('click', () => {
-  modal.classList.remove('active');
-  modalOverlay.classList.remove('active');
+  // Open modal
+  openSongControls.addEventListener("click", () => {
+    modal.classList.add("active");
+    modalOverlay.classList.add("active");
+  });
+
+  // Close modal
+  closeModalBtn.addEventListener("click", () => {
+    modal.classList.remove("active");
+    modalOverlay.classList.remove("active");
+  });
+
+  modalOverlay.addEventListener("click", () => {
+    modal.classList.remove("active");
+    modalOverlay.classList.remove("active");
+  });
 });
 
 // Music
@@ -165,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Pause
+  // Pause SONG
   audioElement.addEventListener("pause", () => {
     if (currentlyPlayingSong) {
       record.style.animationPlayState = "paused"; // Pause record rotation
@@ -176,7 +186,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // End
+  // End song
   audioElement.addEventListener("ended", () => {
     if (currentlyPlayingSong) {
       const currentSongImage = currentlyPlayingSong.querySelector("img");
@@ -194,4 +204,3 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
-
