@@ -83,8 +83,6 @@ modalOverlay.addEventListener('click', () => {
   modalOverlay.classList.remove('active');
 });
 
-//songs
-
 // Music
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -95,48 +93,53 @@ document.addEventListener("DOMContentLoaded", () => {
   const clickPrompt = document.querySelector(".click-prompt");
   let currentlyPlayingSong = null;
 
-  // song selection
+  // Function to set a song as selected
+  const setSongAsSelected = (song) => {
+    // Reset all songs
+    songs.forEach(s => {
+      s.classList.remove("song-selected");
+      const img = s.querySelector("img");
+      if (img) {
+        img.style.animation = ""; // Reset animation for song images
+      }
+    });
+
+    // Mark the selected song
+    song.classList.add("song-selected");
+
+    // Update record image
+    const newImageSrc = song.querySelector("img").src;
+    record.src = newImageSrc;
+
+    // Apply rotation animation to the song image
+    const currentSongImage = song.querySelector("img");
+    if (currentSongImage) {
+      currentSongImage.style.animation = "recordRotate 6s linear infinite";
+    }
+
+    // Set the record's rotation animation
+    record.style.animation = "recordRotate 6s linear infinite";
+
+    // Update currently playing song reference
+    currentlyPlayingSong = song;
+  };
+
+  // Handle song selection
   songs.forEach(song => {
     song.addEventListener("click", () => {
       const newAudioSrc = song.getAttribute("data-audio-src");
-      const newImageSrc = song.querySelector("img").src;
 
       // Check if a new song is selected
       if (audioSource.src !== window.location.origin + "/" + newAudioSrc) {
-        // Reset animation for all song images
-        songs.forEach(s => {
-          s.classList.remove("song-selected");
-          const img = s.querySelector("img");
-          if (img) {
-            img.style.animation = ""; // Reset animation
-          }
-        });
-
-        // Add 'song-selected' to the clicked song
-        song.classList.add("song-selected");
-
-        // Update the audio source and play the new song
+        // Update audio source and play
         audioSource.src = newAudioSrc;
         audioElement.load();
         audioElement.play();
 
-        // Reset and sync the record position with the new song image
-        record.src = newImageSrc;
-        record.style.animation = ""; // Reset animation first
-        setTimeout(() => {
-          record.style.animation = "recordRotate 6s linear infinite";
-        }, 10);
+        // Set the selected song
+        setSongAsSelected(song);
 
-        // Apply rotation animation to the new song's image
-        const currentSongImage = song.querySelector("img");
-        if (currentSongImage) {
-          currentSongImage.style.animation = "recordRotate 6s linear infinite";
-        }
-
-        // Update currently playing song reference
-        currentlyPlayingSong = song;
-
-        // Hide click prompt if visible
+        // Hide click prompt
         if (clickPrompt) {
           clickPrompt.style.display = "none";
         }
@@ -144,7 +147,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  //pause functionality
+  // Handle play functionality (default song selection)
+  audioElement.addEventListener("play", () => {
+    if (!currentlyPlayingSong) {
+      // Default to 'Feel Good Inc' if no song is selected
+      const defaultSong = document.getElementById("feel-good-inc");
+      setSongAsSelected(defaultSong);
+    }
+
+    // Resume animation if already set
+    if (currentlyPlayingSong) {
+      record.style.animationPlayState = "running";
+      const currentSongImage = currentlyPlayingSong.querySelector("img");
+      if (currentSongImage) {
+        currentSongImage.style.animationPlayState = "running";
+      }
+    }
+  });
+
+  // Pause functionality
   audioElement.addEventListener("pause", () => {
     if (currentlyPlayingSong) {
       record.style.animationPlayState = "paused"; // Pause record rotation
@@ -155,18 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // play functionality
-  audioElement.addEventListener("play", () => {
-    if (currentlyPlayingSong) {
-      record.style.animationPlayState = "running"; // Resume record rotation
-      const currentSongImage = currentlyPlayingSong.querySelector("img");
-      if (currentSongImage) {
-        currentSongImage.style.animationPlayState = "running"; // Resume song image rotation
-      }
-    }
-  });
-
-  // ended functionality
+  // End functionality
   audioElement.addEventListener("ended", () => {
     if (currentlyPlayingSong) {
       const currentSongImage = currentlyPlayingSong.querySelector("img");
@@ -177,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
     record.style.animationPlayState = "paused"; // Stop record rotation
   });
 
-  // click prompt
+  // Click prompt functionality
   record.addEventListener("click", () => {
     if (clickPrompt) {
       clickPrompt.style.display = "none";
