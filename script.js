@@ -101,106 +101,107 @@ document.addEventListener("DOMContentLoaded", () => {
   const songs = document.querySelectorAll(".song");
   const record = document.getElementById("record");
   const clickPrompt = document.querySelector(".click-prompt");
+  const parallaxBackground = document.querySelector(".parallax-background");
   let currentlyPlayingSong = null;
 
-  // Set a song as selected
   const setSongAsSelected = (song) => {
-    // Reset all songs
-    songs.forEach(s => {
-      s.classList.remove("song-selected");
-      const img = s.querySelector("img");
-      if (img) {
-        img.style.animation = ""; // Reset animation for song images
+      songs.forEach(s => {
+          s.classList.remove("song-selected");
+          const img = s.querySelector("img");
+          if (img) img.style.animation = "";
+      });
+      song.classList.add("song-selected");
+      const newImageSrc = song.querySelector("img").src;
+      record.src = newImageSrc;
+      const currentSongImage = song.querySelector("img");
+      if (currentSongImage) {
+          currentSongImage.style.animation = "recordRotate 6s linear infinite";
       }
-    });
-
-    // Mark selected song
-    song.classList.add("song-selected");
-
-    // Update record image
-    const newImageSrc = song.querySelector("img").src;
-    record.src = newImageSrc;
-
-    // Apply rotation animation to the song image
-    const currentSongImage = song.querySelector("img");
-    if (currentSongImage) {
-      currentSongImage.style.animation = "recordRotate 6s linear infinite";
-    }
-
-    // Set the record's rotation animation
-    record.style.animation = "recordRotate 6s linear infinite";
-
-    // Update currently playing song reference
-    currentlyPlayingSong = song;
+      record.style.animation = "recordRotate 6s linear infinite";
+      currentlyPlayingSong = song;
   };
 
-  // Handle song selection
   songs.forEach(song => {
-    song.addEventListener("click", () => {
-      const newAudioSrc = song.getAttribute("data-audio-src");
-
-      // Check if a new song is selected
-      if (audioSource.src !== window.location.origin + "/" + newAudioSrc) {
-        // Update audio source and play
-        audioSource.src = newAudioSrc;
-        audioElement.load();
-        audioElement.play();
-
-        // Set the selected song
-        setSongAsSelected(song);
-
-        // Hide click prompt
-        if (clickPrompt) {
-          clickPrompt.style.display = "none";
-        }
-      }
-    });
+      song.addEventListener("click", () => {
+          const newAudioSrc = song.getAttribute("data-audio-src");
+          if (audioSource.src !== `${window.location.origin}/${newAudioSrc}`) {
+              audioSource.src = newAudioSrc;
+              audioElement.load();
+              audioElement.play();
+              setSongAsSelected(song);
+              if (clickPrompt) clickPrompt.style.display = "none";
+          }
+      });
   });
 
-  // Handle play (default song selection)
   audioElement.addEventListener("play", () => {
-    if (!currentlyPlayingSong) {
-      // Default to 'Feel Good Inc' if no song is selected
-      const defaultSong = document.getElementById("feel-good-inc");
-      setSongAsSelected(defaultSong);
-    }
-
-    // Resume animation if already set
-    if (currentlyPlayingSong) {
-      record.style.animationPlayState = "running";
-      const currentSongImage = currentlyPlayingSong.querySelector("img");
-      if (currentSongImage) {
-        currentSongImage.style.animationPlayState = "running";
+      if (!currentlyPlayingSong) {
+          const defaultSong = document.getElementById("feel-good-inc");
+          setSongAsSelected(defaultSong);
       }
-    }
+      if (currentlyPlayingSong) {
+          record.style.animationPlayState = "running";
+          const currentSongImage = currentlyPlayingSong.querySelector("img");
+          if (currentSongImage) {
+              currentSongImage.style.animationPlayState = "running";
+          }
+      }
   });
 
-  // Pause SONG
   audioElement.addEventListener("pause", () => {
-    if (currentlyPlayingSong) {
-      record.style.animationPlayState = "paused"; // Pause record rotation
-      const currentSongImage = currentlyPlayingSong.querySelector("img");
-      if (currentSongImage) {
-        currentSongImage.style.animationPlayState = "paused"; // Pause song image rotation
+      if (currentlyPlayingSong) {
+          record.style.animationPlayState = "paused";
+          const currentSongImage = currentlyPlayingSong.querySelector("img");
+          if (currentSongImage) {
+              currentSongImage.style.animationPlayState = "paused";
+          }
       }
-    }
   });
 
-  // End song
   audioElement.addEventListener("ended", () => {
-    if (currentlyPlayingSong) {
-      const currentSongImage = currentlyPlayingSong.querySelector("img");
-      if (currentSongImage) {
-        currentSongImage.style.animationPlayState = "paused"; // Stop song image rotation
+      if (currentlyPlayingSong) {
+          const currentSongImage = currentlyPlayingSong.querySelector("img");
+          if (currentSongImage) {
+              currentSongImage.style.animation = "";
+          }
       }
-    }
-    record.style.animationPlayState = "paused"; // Stop record rotation
+      record.style.animation = "";
+      parallaxBackground.style.zIndex = "-1";
   });
 
-  // Click prompt
   record.addEventListener("click", () => {
-    if (clickPrompt) {
-      clickPrompt.style.display = "none";
-    }
+      if (clickPrompt) clickPrompt.style.display = "none";
+  });
+
+  const ouiCat = document.getElementById("oui-cat-btn");
+  ouiCat.addEventListener("click", () => {
+      parallaxBackground.style.backgroundImage = "url('/images/dancing-cat.gif')";
+      parallaxBackground.style.zIndex = "6969";
+      const newAudioSrc = "/music/oiia_spinning_cat_meme.mp3";
+      if (audioSource.src !== `${window.location.origin}/${newAudioSrc}`) {
+          audioSource.src = newAudioSrc;
+          audioElement.load();
+          audioElement.play();
+          setSongAsSelected(ouiCat);
+      }
+      audioElement.onended = () => {
+          parallaxBackground.style.backgroundImage = "url(images/pretty-desktop-flower-field-11lxn3janoe1788u.jpg)";
+          parallaxBackground.style.zIndex = "-1";
+      };
   });
 });
+
+const closeOuiCatButtons = document.querySelectorAll('.oui-btn');
+const ouiCatModal = document.querySelector('.oui-cat-modal');
+const ouiCatOpen = document.getElementById('oui-cat-activate');
+
+closeOuiCatButtons.forEach(button => {
+  button.addEventListener('click', () => {
+    ouiCatModal.classList.remove("active");
+  });
+});
+
+ouiCatOpen.addEventListener('click', () => {
+  ouiCatModal.classList.add("active"); 
+});
+

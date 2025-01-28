@@ -18,10 +18,10 @@
     <meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'none'; font-src 'self'; img-src 'self'; style-src 'self'; connect-src 'self';">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="style.css?v=3.9.6" type="text/css">
+    <link rel="stylesheet" href="style.css?v=3.9.9" type="text/css">
 
     <!-- JS -->
-    <script defer src="script.js?v=7.2.1"></script>
+    <script defer src="script.js?v=7.2.2"></script>
 
 </head>
 
@@ -34,6 +34,17 @@
     <div class="record-container" id="record-container">
         <p class="animate-bounce click-prompt">Click Me <br>👇</p>
         <img id="record" src="images/Record.png" alt="Record Disk">
+    </div>
+
+    <!--Oui Cat Confirmation-->
+    <div class="oui-cat-modal">
+        <h2>Are You Sure You Want To Do This?</h2>
+        <p>There is no going back...</p>
+        <img src="images/oia-uia.gif" alt="Oia Uia Cat">
+        <div>
+            <p href="#" class="oui-btn">No that sounds scawy 😨</p>
+            <p class="oui-btn" id="oui-cat-btn">Activate Oiaa Cat 😎</p>
+        </div>
     </div>
 
     <!--Modal-->
@@ -89,6 +100,11 @@
             <div class="song" id="pandora" data-audio-src="music/Pandora-slowed.mp3">
                 <img src="images/Pandora - Wisp.png" alt="Record Disk">
                 <p>Pandora</p>
+            </div>
+
+            <div class="oui-cat" id="oui-cat-activate">
+                <img src="images/Oui-Cat.jpeg" alt="Oui Cat">
+                <p>Activate Oui Cat Mode</p>
             </div>
         
         </div>
