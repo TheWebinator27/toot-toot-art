@@ -491,7 +491,7 @@ header{
   display: flex;
   flex-direction: column;
 
-  width: 80%;
+  width: 90%;
   max-width: 400px;
   background-color: var(--black);
   padding: 25px;
@@ -519,6 +519,7 @@ header{
   justify-content: space-around;
   margin-top: 20px;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 
 .oui-cat-modal div p{
@@ -526,6 +527,10 @@ header{
   background-color: red;
   font-size: 14px;
   cursor: pointer;
+
+  media(max-width: 980px){
+    width: 100%;
+  }
 }
 
 .oui-cat img{
